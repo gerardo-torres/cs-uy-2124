@@ -104,22 +104,19 @@ int main () {
                         }
                     }
                 }
-
+                char newCellValue;
                 if (currCell == '*') {
-                    // cout << "alive" << endl;
+                    newCellValue = '*';
                     if (livingNeighbors < 2 || livingNeighbors > 3) {
-                        newRow = newRow + '-';
-                    } else {
-                        newRow = newRow + '*';
+                        newCellValue = '-';
                     }
                 } else {
-                    // cout << "alive" << endl;
+                    newCellValue = '-';
                     if (livingNeighbors == 3) {
-                        newRow = newRow + '*';
-                    } else {
-                        newRow = newRow + '-';
+                        newCellValue = '*';
                     }
                 }
+                newRow = newRow + newCellValue;
             }
             newVectorOfCells.push_back(newRow);
         }
