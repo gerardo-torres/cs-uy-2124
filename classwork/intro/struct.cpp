@@ -5,8 +5,7 @@
 #include <iostream>
 using namespace std;
 
-struct Person
-{
+struct Person {
     string name;
     int age;
 };
@@ -15,13 +14,11 @@ struct Person
 // int n; // DONT, NOT OK, LOT OF BUGS, FORBIDDEN JUTSU
 // const int THE_ANSWER = 42; // OK, because it is constant throughout, Not a problem
 
-int main()
-{
+int main() {
     vector<Person> people;
     ifstream ifs("person.txt");
 
-    if (!ifs)
-    {                                            //Checking whether or not the stream is good, weather open succeeded
+    if (!ifs) {                                            //Checking whether or not the stream is good, weather open succeeded
         cerr << "failed to open people" << endl; // Console error
         exit(1);
     }
@@ -42,8 +39,7 @@ int main()
 
     //people.push_back(fred); //  Pushes a copy of fred, not reference
 
-    while (ifs >> name >> age)
-    {
+    while (ifs >> name >> age) {
         Person somebody;
         somebody.name = name;
         somebody.age = age;
@@ -52,8 +48,7 @@ int main()
 
     ifs.close();
 
-    for (size_t i = 0; i < people.size(); ++i)
-    {
+    for (size_t i = 0; i < people.size(); ++i) {
         cout << people[i].name << ' ' << people[i].age << endl;
     }
 }
