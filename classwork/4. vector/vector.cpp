@@ -59,9 +59,13 @@ public:
 		++theSize;
 	}
 
-    size_t size() const { return theSize; }
+    size_t size() const { 
+        return theSize;
+    }
 
-    void clear() { theSize = 0; }
+    void clear() { 
+        theSize = 0; 
+    }
 
     void pop_back() { --theSize; }
 
@@ -69,14 +73,22 @@ public:
         return data;
     }
 
-    int* begin() {
+    int* end() {
         return data + theSize;
     }
 
-    // Square brackets?
+    int* begin() const {
+        return data;
+    }
+
+    int* end() const {
+        return data + theSize;
+    }
+
     int operator[](size_t index) const { 
         return data[index]; 
     } // Getter
+
     int &operator[](size_t index) { 
         return data[index]; 
     } // Setter
@@ -86,3 +98,26 @@ public:
     size_t theCapacity;
     size_t theSize;
 };
+
+void printVector(const Vector& v) {
+    // Needs to have a const version of begin and end
+    for (int x : v) {
+        cout << x << '\n';
+    }
+}
+
+int main() {
+    Vector v;
+    
+    for (int* p = v.begin(); p != v.end(); ++p) {
+        // int x = *p; // Copies
+        // cout << x << '\n';
+        cout << *p << '\n';
+    }
+    
+    for (int x : v) {
+        cout << x << '\n';
+    }
+
+
+}

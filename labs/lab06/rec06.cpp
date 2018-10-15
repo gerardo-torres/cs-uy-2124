@@ -74,7 +74,7 @@ class Directory {
         for (size_t i = 0; i < rhs.size; ++i) {
             os << *rhs.entries[i] << '\n';
         }
-        return os;
+        return os;  // Make sure to return OS!
     }
 
 public:
