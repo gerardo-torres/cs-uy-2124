@@ -18,7 +18,8 @@ int main() {
     vector<Person> people;
     ifstream ifs("person.txt");
 
-    if (!ifs) {                                            //Checking whether or not the stream is good, weather open succeeded
+    if (!ifs) {                                  
+        // Checking whether or not the stream is good, weather open succeeded
         cerr << "failed to open people" << endl; // Console error
         exit(1);
     }
