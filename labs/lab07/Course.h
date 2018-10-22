@@ -15,8 +15,7 @@ namespace BrooklynPoly {
     public:
         Course(const std::string& courseName);
         std::string getName() const;
-        void addStudent(Student*);
-	std::vector<Student*> getStudents() const;
+        void addStudent(Student* newStudent);
         void purge();
     private:
         std::string name;

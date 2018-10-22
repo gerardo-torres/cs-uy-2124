@@ -11,15 +11,15 @@ namespace BrooklynPoly {
     class Course;
     Student::Student(const string &name) : name(name) {}
 
-    ostream &operator<<(ostream &os, const Student &stu) {
-        os << stu.name << ": ";
-        vector<Course*> studentCourses = stu.courses;
+    ostream &operator<<(ostream &os, const Student &rhs) {
+        os << rhs.name << ": ";
+        vector<Course*> studentCourses = rhs.courses;
         if (studentCourses.size() > 0) {
             for (const Course* currCourse : studentCourses) {
                 os << currCourse->getName() << " ";
             }
         } else {
-            os << "None";
+            os << "No Courses";
         }
         os << "\n";
         return os;
@@ -33,23 +33,26 @@ namespace BrooklynPoly {
         courses.push_back(newCourse);
     }
 
-    // delete this later xD
-    vector<Course*> Student::getCourses() const {
-        return courses;
-    }
-
     void Student::dropCourse(Course* oldCourse) {
+        size_t courseIndex = 0;
+        size_t myIndex = 0;
         for (Course* currCourse : courses) {
             if (currCourse == oldCourse) {
-                swap(courses.back(), currCourse);
+                courseIndex = myIndex;
+                ++myIndex;
+            }
+        }
+        size_t last = courses.size() - 1;
+        for (Course* currCourse : courses) {
+            if (currCourse == oldCourse) {
+                Course* temp = currCourse;
+                courses[courseIndex] = courses[last];
+                courses[last] = temp;
+                temp = nullptr;
                 courses.pop_back();
                 return;
             }
         }
+
     }
 }
-// void swap(vector<Hydrocarbon> &vHydroCarbs, int j) {
-//     Hydrocarbon temp = vHydroCarbs[j];
-//     vHydroCarbs[j] = vHydroCarbs[j + 1];
-//     vHydroCarbs[j + 1] = temp;
-// }

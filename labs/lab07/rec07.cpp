@@ -69,8 +69,8 @@ int main() {
     cout << registrar << endl;  // or registrar.printReport()
     */
 
-    cout << "Purge for start of next semester\n";
-    registrar.purge();
-    cout << registrar << endl;
+    // cout << "Purge for start of next semester\n";
+    // registrar.purge();
+    // cout << registrar << endl;
 }
 

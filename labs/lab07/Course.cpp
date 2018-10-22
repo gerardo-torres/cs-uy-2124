@@ -9,15 +9,16 @@ namespace BrooklynPoly {
     Course::Course(const std::string& courseName) 
     : name(courseName) {}
 
-    std::ostream &operator<<(std::ostream& os , const Course& rhs) {
+    std::ostream &operator<<(std::ostream& os, const Course& rhs) {
         os << rhs.name << ": ";
         if (rhs.students.size() > 0) {
-            for (const Student* currStudent :rhs.students)  {
+            for (const Student* currStudent : rhs.students)  {
                 os << currStudent->getName() << " ";
             }
         } else {
-            os << "None";
+            os << "No Students";
         }
+        os << "\n";
         return os;
     }
 
@@ -29,14 +30,7 @@ namespace BrooklynPoly {
         students.push_back(newStudent);
     }
 
-    std::vector<Student*> Course::getStudents() const {
-    	return students;
-    }
-
     void Course::purge() {
-        // for (Student* currStudent : students) {
-        //     delete currStudent;
-        // }
         students.clear();
     }
 }

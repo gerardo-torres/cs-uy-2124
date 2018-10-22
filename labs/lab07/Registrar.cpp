@@ -7,72 +7,141 @@ using namespace std;
 
 namespace BrooklynPoly {
     ostream& operator<<(std::ostream&os, const Registrar& rhs) {
-        vector<Course*> currCourses = rhs.courses;
-        vector<Student*> currStudents = rhs.students;
-        os << "Registrar's Report\n";
-        os << "Courses: \n";
-        for (Course* currCourse : currCourses) {
-            os << *currCourse << " "; 
+        vector<Course*> rhsCourses = rhs.courses;
+        vector<Student*> rhsStudents = rhs.students;
+        os << "Registrar's Report\nCourses:\n";
+        for (Course* currCourse : rhsCourses) {
+            os << *currCourse;
         }
-        os << "\n";
-        os << "Students: \n";
-        for (Student* currStudent : currStudents) {
+        os << "Students:\n";
+        for (Student* currStudent : rhsStudents) {
             os << *currStudent << " ";
         }
-        os << "\n";
         return os;
     }
 
-    Registrar::Registrar() {
-    }
+    Registrar::Registrar() {}
     
     bool Registrar::addCourse(const std::string& courseName) {
-        Course* newCourse = new Course(courseName);
-        courses.push_back(newCourse);
+        size_t courseIndex = findCourse(courseName);
+        if (courseIndex == -1) {
+            Course* newCourse = new Course(courseName);
+            courses.push_back(newCourse);
+            return true;
+        }
+        return false;
     }
 
     bool Registrar::addStudent(const std::string& studentName) {
-        Student* newStudent = new Student(studentName);
-        students.push_back(newStudent);
+        size_t studentIndex = findStudent(studentName);
+        if (studentIndex == -1) {
+            Student* newStudent = new Student(studentName);
+            students.push_back(newStudent);
+            return true;
+        }
+        return false;
     }
 
-    bool Registrar::enrollStudentInCourse(const string& studentName, const std::string &courseName) {
+    bool Registrar::enrollStudentInCourse(const string& studentName, 
+                                     const std::string& courseName) {
         size_t studentIndex = findStudent(studentName);
         size_t courseIndex = findCourse(courseName);
-        if (studentIndex != -1 && courseIndex != -1){
+        if (studentIndex != -1 && courseIndex != -1) {
             Student* currStudent = students[studentIndex];
             Course* currCourse = courses[courseIndex];
             currStudent->addCourse(currCourse);
+            currCourse->addStudent(currStudent);
             return true;
-        } else {
-            std::cerr << "Invalid operation\n";
-            return false;
         }
+        return false;
     }
 
     bool Registrar::cancelCourse(const std::string& courseName) {
         size_t courseIndex = findCourse(courseName);
-        Course* oldCourse = courses[courseIndex];
-        for (Student* student: students){
-            student->dropCourse(oldCourse);
+        if (courseIndex != -1) {
+            Course* oldCourse = courses[courseIndex];
+            for (Student* currStudent : students) {
+                currStudent->dropCourse(oldCourse);
+            }
+            size_t last = courses.size() - 1;
+            oldCourse->purge();
+            Course* temp = oldCourse;
+            courses[courseIndex] = courses[last];
+            courses[last] = temp;
+            courses.pop_back();
+            return true;
         }
-        oldCourse->purge();
-        swap(courses.back(), courses[courseIndex]);
-        courses.pop_back();
-        delete courses[courses.size()];
+        return false;
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     void Registrar::purge() {
         for (Student* currStudent : students) {
             delete currStudent;
         }
-        students.clear();
         for (Course* currCourse : courses) {
             delete currCourse;
         }
+        students.clear();
         courses.clear();
     }
-
+    
     size_t Registrar::findStudent(const std::string &studentName) {
         size_t index = 0;
         for (Student* currStudent : students) {
