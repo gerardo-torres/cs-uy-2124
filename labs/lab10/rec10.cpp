@@ -154,8 +154,7 @@ private:
 // Musical Instrument Lending Library ---------------------------
 class MILL {
 public:
-    MILL()
-    : capacity(0), currSize(0) {}
+    MILL() : currSize(0) {}
 
     void dailyTestPlay() {
         for (Instrument* currInstrument : instruments) {
@@ -165,12 +164,11 @@ public:
 
     void receiveInstr(Instrument& newInstrument) {
         Instrument* instruPtr = &newInstrument;
-        if (currSize == capacity) {
+        if (currSize == instruments.size()) {
             instruments.push_back(instruPtr);
-            ++capacity;
             ++currSize;
         } 
-        for (size_t i = 0; i < capacity; ++i) {
+        for (size_t i = 0; i < instruments.size(); ++i) {
             Instrument *currBin = instruments[i];
             if (currBin == nullptr) {
                 instruments[i] = instruPtr;
@@ -182,7 +180,7 @@ public:
 
     Instrument* loanOut() {
         if (currSize == 0) { return nullptr; }
-        for (size_t i = 0; i < capacity; ++i) {
+        for (size_t i = 0; i < instruments.size(); ++i) {
             Instrument* currBin = instruments[i];
             if (currBin != nullptr) {
                 --currSize;
@@ -193,7 +191,6 @@ public:
     }
 private:
     vector<Instrument*> instruments;
-    int capacity;
     int currSize;
 };
 
